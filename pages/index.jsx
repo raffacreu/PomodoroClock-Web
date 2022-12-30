@@ -54,10 +54,11 @@ export default function Home() {
   }, [baseTime])
 
   useEffect(() => {
+    if(customTime > 0) {
     let seconds = customTime * 60
     if(customTime == 60) --seconds
     setBaseTime(seconds) 
-
+  }
   }, [customTime])
 
   function resetTime() {
