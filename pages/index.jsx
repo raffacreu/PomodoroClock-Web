@@ -13,9 +13,10 @@ export default function Home() {
   const longTime = 60 * 10
   const shortTime = 60 * 5
   
+  //const [ customTime, setCustomTime ] = useState(0)
   const [ baseTime, setBaseTime ] = useState(periodTime)
   const [ timer, setTimer ] = useState(baseTime)
-  const [ timeLeft, setTimeLeft ] = useState(format(periodTime * 1000, 'mm:ss'))
+  const [ timeLeft, setTimeLeft ] = useState(format(baseTime * 1000, 'mm:ss'))
   const [ start, setStart ] = useState(false)
   const [ storedTimeout, setStoredTimeout] = useState(null)
 
@@ -30,12 +31,16 @@ export default function Home() {
     }
   }, [timer, start])
 
+  useEffect(() => {
+    resetTime()
+  }, [baseTime])
+
   function resetTime() {
-    setTimer(periodTime)
-    setTimeLeft(format(periodTime * 1000, 'mm:ss'))
     setStart(false)
+    setTimer(baseTime)
+    setTimeLeft(format(baseTime * 1000, 'mm:ss'))
   }
-    
+
   return (
     <>
       <Head>
@@ -47,9 +52,9 @@ export default function Home() {
 
       <div>
         <h1>Hello world</h1>
-        <button>25</button>
-        <button>10</button>
-        <button>5</button>
+        <button onClick={() => setBaseTime(periodTime)}>25</button>
+        <button onClick={() => setBaseTime(longTime)}>10</button>
+        <button onClick={() => setBaseTime(shortTime)}>5</button>
         <hr />
         <span>{timeLeft}</span>
         <hr />
