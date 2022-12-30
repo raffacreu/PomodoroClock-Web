@@ -13,12 +13,30 @@ export default function Home() {
   const longTime = 60 * 10
   const shortTime = 60 * 5
   
-  //const [ customTime, setCustomTime ] = useState(0)
+  const [ customTime, setCustomTime ] = useState(0)
   const [ baseTime, setBaseTime ] = useState(periodTime)
   const [ timer, setTimer ] = useState(baseTime)
   const [ timeLeft, setTimeLeft ] = useState(format(baseTime * 1000, 'mm:ss'))
   const [ start, setStart ] = useState(false)
   const [ storedTimeout, setStoredTimeout] = useState(null)
+
+  /* useEffect(() => {
+    (function notifyMe() {
+      if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+
+      } else if (Notification.permission === "granted") {
+        const notification = new Notification("Hi there!");
+
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            const notification = new Notification("Hi there!");
+          }
+        });
+      }
+    })()
+  },[]) */
 
   useEffect(() => {
     if (start) {
@@ -34,6 +52,13 @@ export default function Home() {
   useEffect(() => {
     resetTime()
   }, [baseTime])
+
+  useEffect(() => {
+    let seconds = customTime * 60
+    if(customTime == 60) --seconds
+    setBaseTime(seconds) 
+
+  }, [customTime])
 
   function resetTime() {
     setStart(false)
@@ -55,6 +80,7 @@ export default function Home() {
         <button onClick={() => setBaseTime(periodTime)}>25</button>
         <button onClick={() => setBaseTime(longTime)}>10</button>
         <button onClick={() => setBaseTime(shortTime)}>5</button>
+        <input type="number" min={0} max={60} onChange={e => setCustomTime(e.target.value)} value={customTime} />
         <hr />
         <span>{timeLeft}</span>
         <hr />
