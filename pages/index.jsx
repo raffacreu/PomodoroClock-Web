@@ -20,7 +20,7 @@ export default function Home() {
   const [ start, setStart ] = useState(false)
   const [ storedTimeout, setStoredTimeout] = useState(null)
 
-  /* useEffect(() => {
+  useEffect(() => {
     (function notifyMe() {
       if (!("Notification" in window)) {
         alert("This browser does not support desktop notification");
@@ -36,7 +36,7 @@ export default function Home() {
         });
       }
     })()
-  },[]) */
+  },[])
 
   useEffect(() => {
     if (start) {
