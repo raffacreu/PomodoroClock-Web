@@ -40,7 +40,7 @@ export default function Home() {
   },[timer])
 
   useEffect(() => {
-    if (start && timer >= 1 ) {
+    if (start && timer >= 0 ) {
       setStoredTimeout(setTimeout(() => {
         setTimer(timer - 1)
         setTimeLeft(format(timer * 1000, 'mm:ss'))
